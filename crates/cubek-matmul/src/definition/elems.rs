@@ -29,6 +29,8 @@ impl MatmulElems {
     pub fn from_globals(global_elems: &MatmulGlobalElems) -> Self {
         let acc_type = if global_elems.out == half::f16::elem_type_native()
             || global_elems.out == half::bf16::elem_type_native()
+            // rag3weaver : Flex32 en sortie accumule en f32, comme f16 et bf16.
+            || global_elems.out == flex32::elem_type_native()
         {
             f32::elem_type_native()
         } else {
